@@ -82,6 +82,16 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .hero .hero-actions{flex-direction:column;align-items:center}
 }
 .hint{color:#475569;font-size:.8em;margin-top:8px}
+.fb-post{background:#14142a;border:1px solid rgba(99,102,241,.08);border-radius:12px;padding:20px 24px;margin-bottom:16px;transition:all .2s}
+.fb-post:hover{border-color:rgba(99,102,241,.15);background:#16162e}
+.fb-header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.fb-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.fb-name{font-size:.88em;font-weight:700;color:#e0e4f0}
+.fb-time{font-size:.72em;color:#64748b;margin-top:2px}
+.fb-body{font-size:.85em;color:#94a3b8;line-height:1.6;margin-bottom:14px;padding-left:58px}
+.fb-actions{display:flex;gap:4px;padding-top:12px;border-top:1px solid rgba(99,102,241,.06)}
+.fb-action{font-size:.78em;color:#64748b;padding:6px 14px;border-radius:6px;cursor:default;transition:all .15s}
+.fb-action:hover{background:rgba(99,102,241,.08);color:#a5b4fc}
 </style>
 </head>
 <body>
@@ -90,6 +100,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <a href="#" class="logo"><span class="logo-icon">⚡</span>Hermes Box</a>
   <div class="nav-links">
     <a href="#features">Features</a>
+    <a href="#skills">Skills</a>
     <a href="#demo">Demo</a>
     <a href="#start">Get Started</a>
     <a href="ru/" class="lang-switch">🇷🇺 Русский</a>
@@ -181,21 +192,122 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
 <div class="section-divider"></div>
 
-<section class="section">
-  <div class="container">
+<section class="section" id="skills">
+  <div class="container" style="max-width:720px">
     <div class="section-header">
       <span class="section-label">Expandability</span>
       <h2>Skills — Teach the Bot New Tricks</h2>
-      <p>Hermes Agent loads new capabilities on the fly. No redeploy, no restart — just drop a skill file. Each skill is a plain Python file with instructions in natural language.</p>
+      <p style="max-width:520px">Hermes Agent loads new skills on the fly. No redeploy, no restart — just drop a Python file. Each skill works like an app inside your bot.</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(124,58,237,.12)">📊</div><h3>Google Sheets</h3><p>Read and write spreadsheets. Update inventory, pull reports, sync data — all through Telegram.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(6,182,212,.1)">📧</div><h3>Email</h3><p>Send, read, search emails. "Find the invoice from last week" — the bot checks IMAP and replies with the attachment.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(234,179,8,.1)">✅</div><h3>Task Tracking</h3><p>Create tasks in your tracker, move statuses, assign people. Works with GitHub Issues or any API.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(34,197,94,.1)">📋</div><h3>Reports & Analytics</h3><p>Scheduled reports — daily sales, weekly server stats, monthly summaries. Delivered to Telegram or email.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(236,72,153,.1)">🔍</div><h3>Code Review</h3><p>Point the bot at a PR — it reviews diffs, checks style, and suggests fixes. Integrates via webhooks.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(16,185,129,.1)">🧩</div><h3>Your Custom Skill</h3><p>Write what you need in plain Python with natural-language instructions. The bot follows them. No deep integration required.</p></div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(124,58,237,.18);color:#a78bfa">📊</div>
+        <div>
+          <div class="fb-name">Google Sheets</div>
+          <div class="fb-time">Add-on · 2 min to install</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        Read and write spreadsheets directly from Telegram. Update inventory, pull monthly reports, sync CRM data — no GUI needed.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
     </div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(6,182,212,.15);color:#22d3ee">📧</div>
+        <div>
+          <div class="fb-name">Email Agent</div>
+          <div class="fb-time">Add-on · 5 min to install</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        "Find the invoice from last week" — the bot connects to IMAP, searches your inbox, and replies with the attachment. Send emails by dictation.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
+    </div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(234,179,8,.15);color:#eab308">✅</div>
+        <div>
+          <div class="fb-name">Task Tracker</div>
+          <div class="fb-time">Add-on · 3 min to install</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        Create tasks, move statuses, assign people — all from a Telegram message. Works with GitHub Issues, Jira, or any REST API.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
+    </div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(34,197,94,.15);color:#4ade80">📋</div>
+        <div>
+          <div class="fb-name">Reports & Analytics</div>
+          <div class="fb-time">Add-on · 5 min to install</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        Scheduled reports on autopilot — daily sales, weekly server stats, monthly summaries. Delivered to Telegram at the time you choose.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
+    </div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(236,72,153,.15);color:#f472b6">🔍</div>
+        <div>
+          <div class="fb-name">Code Review</div>
+          <div class="fb-time">Add-on · 4 min to install</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        Send a PR link — the bot reviews diffs, flags style issues, suggests fixes. Integrates via GitHub webhooks for auto-reviews.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
+    </div>
+
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar" style="background:rgba(16,185,129,.15);color:#34d399">🧩</div>
+        <div>
+          <div class="fb-name">Your Custom Skill</div>
+          <div class="fb-time">DIY · 10 min to write</div>
+        </div>
+      </div>
+      <div class="fb-body">
+        Write a plain Python file with instructions in natural language. The bot reads it and follows the rules. No SDK, no deep integration — just a .py file.
+      </div>
+      <div class="fb-actions">
+        <span class="fb-action">👍 Like</span>
+        <span class="fb-action">💬 Comment</span>
+        <span class="fb-action">↗ Share</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
