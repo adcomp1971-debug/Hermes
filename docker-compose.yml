@@ -8,13 +8,6 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
     healthcheck:
       # /api/version returns 200; bare / returns 404 and would hang the stack.
       test: ["CMD-SHELL", "ollama --version >/dev/null 2>&1 || exit 1"]
@@ -22,7 +15,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
-    profiles: ["full", "gpu"]
+    profiles: ["full", "gpu", "basic"]
 
   # ─── Chat Interface ────────────────────────────────
   open-webui:

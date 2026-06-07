@@ -33,16 +33,18 @@
 
 ## 💡 What is Hermes Box?
 
-Hermes Box is a **turnkey AI infrastructure** that turns any server with a GPU into a private, secure AI assistant for your entire team.
-
-**No cloud dependency. No monthly per-seat fees. No data leaving your network.**
+Hermes Box is a **self-hosted AI stack** for your office. It runs entirely on your hardware — no cloud, no data leaving your network.
 
 ```bash
-# One command to deploy your own AI stack
+# 3 commands to a running stack, then drop your docs:
 git clone https://github.com/adcomp1971-debug/Hermes
 cd Hermes && ./setup.sh
+docker exec hermes-ollama ollama pull qwen2.5:7b
 # → Open http://localhost:3000 → Chat with your private AI
+# → Drop docs in ./documents/ → POST /ingest → RAG-ready
 ```
+
+> **Note:** First `ollama pull` downloads ~4.7 GB and can take 5–15 minutes on CPU. On a GPU machine it's faster.
 
 ### Why Hermes Box?
 
@@ -62,7 +64,7 @@ cd Hermes && ./setup.sh
 - **💬 Web Chat UI** — Open WebUI with mobile-responsive interface
 - **🤖 Telegram Bot** — AI assistant for your whole team in Telegram
 - **📄 RAG — Chat Over Documents** — AI answers based on your PDFs, docs, text files
-- **🔐 VPN Included** — Tailscale for secure remote access
+- **🔐 VPN Included** — Tailscale sidecar for secure remote access (requires free account)
 - **📦 One Command Deploy** — `./setup.sh` does everything
 
 ---
@@ -133,25 +135,23 @@ cd Hermes && ./setup.sh
 - Linux or macOS (Windows via WSL2)
 - Optional: NVIDIA GPU + [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
-### 5-Step Setup
+### Quick Start
 
 ```bash
 # 1. Clone
 git clone https://github.com/adcomp1971-debug/Hermes
 cd Hermes
 
-# 2. Run setup (detects GPU automatically, generates secrets)
+# 2. Run setup (auto-detects GPU, generates secrets)
 ./setup.sh
 
-# 3. Pull a model
+# 3. Pull a model (first pull downloads ~4.7 GB)
 docker exec hermes-ollama ollama pull qwen2.5:7b
 
-# 4. Pull embeddings (for RAG — chat over your documents)
+# Then drop your documents and index:
 docker exec hermes-ollama ollama pull nomic-embed-text
-
-# 5. Open the UI
-open http://localhost:3000   # Web Chat
-# → Or talk to your Telegram bot
+cp your-docs/*.pdf documents/
+curl -X POST http://localhost:8002/ingest
 ```
 
 ### Docker Compose Profiles
