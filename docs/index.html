@@ -104,7 +104,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="hero-badge"><span class="glow-dot green"></span>v0.2 — MIT Licensed</div>
     <h1><span class="gradient-text">Self-hosted AI</span><br>for your office</h1>
     <p class="tagline">
-      A private AI assistant running on your hardware. LLM, RAG over your documents, Telegram bot, VPN.
+      All the pieces already exist — Ollama, Open WebUI, Tailscale. The hard part is <strong>assembly</strong>: wiring containers, securing the Telegram bot, setting up RAG that doesn't hallucinate, adding VPN without opening ports. That normally takes a day of config wrestling. Hermes Box is a pre-assembled stack that works in <strong>5 minutes</strong>.<br><br>
       No cloud, no per-seat fees, no data leaving your network.
     </p>
     <div class="hero-actions">
@@ -129,7 +129,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="features-grid">
       <div class="feature-card"><div class="feature-icon" style="background:rgba(124,58,237,.12)">🧠</div><h3>Private LLM</h3><p>Ollama-powered local inference. Runs on GPU or CPU. Fully offline — your data never leaves the building.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(6,182,212,.1)">💬</div><h3>Web Chat UI</h3><p>Open WebUI with conversations, file uploads, model switching. Accessible from any browser.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(34,197,94,.1)">📄</div><h3>RAG — Chat Over Documents</h3><p>Drop PDFs, docs, or text files. AI answers based on your documents, citing the source. No external vector DB needed.</p></div>
+      <div class="feature-card"><div class="feature-icon" style="background:rgba(34,197,94,.1)">📄</div><h3>RAG — Answers From Your Documents, With Sources</h3><p>Drop PDFs, docs, or text files. AI searches them and answers with a visible citation — which file the info came from. If the answer isn't in your documents, the model says so instead of making things up. No external vector DB needed — just numpy on disk.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(234,179,8,.1)">🤖</div><h3>Telegram Bot</h3><p>AI assistant for your team inside Telegram. Gated by user ID allowlist — only your people get access.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(236,72,153,.1)">🔐</div><h3>VPN Included</h3><p>Tailscale sidecar for secure remote access (requires free Tailscale account).</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(16,185,129,.1)">⚡</div><h3>3 Commands + Docs</h3><p><code>git clone + ./setup.sh + ollama pull</code>. Then drop your documents and run <code>POST /ingest</code>.</p></div>

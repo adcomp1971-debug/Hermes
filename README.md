@@ -44,28 +44,70 @@ docker exec hermes-ollama ollama pull qwen2.5:7b
 # → Drop docs in ./documents/ → POST /ingest → RAG-ready
 ```
 
-> **Note:** First `ollama pull` downloads ~4.7 GB and can take 5–15 minutes on CPU. On a GPU machine it's faster.
+> **Note:** First `ollama pull` downloads ~4.7 GB and can take 5–15 minutes on CPU.
 
-### Why Hermes Box?
+### What's the actual value?
+
+All components Hermes Box uses already exist as separate projects — Ollama, Open WebUI, Tailscale. The problem is **assembly**:
+- Wiring containers together so they actually talk to each other
+- Setting up Telegram bot with user allowlist so randoms can't access it
+- Making RAG that doesn't hallucinate or lose context
+- Adding VPN so it works from home without opening ports
+- Documenting everything so a non-devops person can set it up
+
+That normally takes a day of fighting configs. Hermes Box is a pre-assembled `docker-compose.yml` that just works in 5 minutes.
+
+### Why not just use ChatGPT?
 
 | Problem | Hermes Box Solution |
 |---------|-------------------|
 | ChatGPT costs $20–$30/user/month | **One-time hardware cost, $0/user** |
 | Cloud AI trains on your data | **100% private, runs on your hardware** |
-| Need DevOps to deploy AI | **One script, done in 5 minutes** |
+| Need DevOps to deploy AI | **Pre-assembled stack, 5 minutes** |
 | Team needs remote access | **Built-in VPN (Tailscale)** |
 | No internet? No AI | **Runs fully offline** |
 
 ---
 
-## ✨ Features
+## ✨ What makes it different
 
-- **🧠 Private LLM Inference** — Ollama with Qwen, Llama, Nemotron — fully local
-- **💬 Web Chat UI** — Open WebUI with mobile-responsive interface
-- **🤖 Telegram Bot** — AI assistant for your whole team in Telegram
-- **📄 RAG — Chat Over Documents** — AI answers based on your PDFs, docs, text files
-- **🔐 VPN Included** — Tailscale sidecar for secure remote access (requires free account)
-- **📦 One Command Deploy** — `./setup.sh` does everything
+### 📄 RAG That Actually Works
+
+RAG (Retrieval-Augmented Generation) means AI answers from **your documents**, not from its training data. Sounds simple, but most RAG implementations have common failure modes:
+
+- Answers come without sources — no way to verify
+- Sources point to nothing useful
+- Model **hallucinates** when docs don't contain the answer
+- Requires a separate vector database (Pinecone, Qdrant, Weaviate)
+- Chunks are poorly split — answers lose context
+
+**Hermes Box RAG does it differently:**
+
+- **Vector storage is numpy.** Yes, a numpy array saved to disk. No extra services, nothing to configure, never crashes
+- **Every answer cites its source file.** Not a vague reference — "taken from readme.txt" with the filename visible
+- **Honest refusal.** If the document corpus has no relevant content, the model says "the context does not contain this" instead of making something up
+- **Multilingual.** Ask in Russian, get answers from Russian docs. Ask in English, get answers from English docs
+- **Similarity threshold of 0.35.** Below that, the model doesn't guess — it refuses
+
+See the screenshots below for live examples from a running instance.
+
+### 🧩 Expandable via Skills
+
+Hermes Agent supports **Skills** — modular capabilities you can add at any time.
+
+Want the bot to work with Google Sheets? Add a skill. Need daily reports? Add a skill. Email, task tracking, analytics, code review — all through the same interface.
+
+Skills are plain Python files with natural-language instructions. You don't need to be a developer to add one — describe what the bot should do, and it follows the instructions.
+
+### 🔧 Everything else
+
+| Feature | What it does |
+|---------|-------------|
+| **🧠 Private LLM** | Ollama with Qwen, Llama, Nemotron — fully local |
+| **💬 Web Chat UI** | Open WebUI with conversations, file uploads, model switching |
+| **🤖 Telegram Bot** | AI assistant in Telegram, gated by user ID allowlist |
+| **🔐 VPN Included** | Tailscale sidecar for secure remote access (free account required) |
+| **📦 Pre-assembled** | `./setup.sh` generates secrets, detects GPU, starts everything |
 
 ---
 

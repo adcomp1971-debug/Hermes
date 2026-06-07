@@ -104,7 +104,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="hero-badge"><span class="glow-dot green"></span>v0.2 — MIT License</div>
     <h1><span class="gradient-text">AI-ассистент</span><br>для вашего офиса</h1>
     <p class="tagline">
-      Свой приватный AI на вашем железе. Три команды — и у команды есть чат, который отвечает на основе ваших документов.
+      Все компоненты уже существуют по отдельности — Ollama, Open WebUI, Tailscale. Сложность в том, чтобы <strong>собрать их вместе</strong>: соединить контейнеры, настроить Telegram-бота с белым списком, сделать RAG который не галлюцинирует, добавить VPN без открытых портов. Обычно это день танцев с бубном. Hermes Box — уже собранный стек, который работает за <strong>5 минут</strong>.<br><br>
       Никаких облаков, никакой платы за пользователя.
     </p>
     <div class="hero-actions">
@@ -129,7 +129,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div class="features-grid">
       <div class="feature-card"><div class="feature-icon" style="background:rgba(124,58,237,.12)">🧠</div><h3>Приватный LLM</h3><p>Локальный инференс через Ollama. На GPU или CPU. Полностью офлайн — данные не покидают офис.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(6,182,212,.1)">💬</div><h3>Веб-чат</h3><p>Open WebUI с историей, файлами, переключением моделей. Доступно из любого браузера.</p></div>
-      <div class="feature-card"><div class="feature-icon" style="background:rgba(34,197,94,.1)">📄</div><h3>RAG — чат по документам</h3><p>Кидайте PDF, DOC, TXT. AI отвечает строго по вашим документам с указанием источника. Без внешних векторных БД.</p></div>
+      <div class="feature-card"><div class="feature-icon" style="background:rgba(34,197,94,.1)">📄</div><h3>RAG — чат по документам</h3><p>Кидайте PDF, DOC, TXT. AI отвечает строго по вашим документам с указанием источника. Если ответа нет — честно отказывается, вместо того чтобы выдумывать. Без внешних векторных БД — просто numpy на диске.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(234,179,8,.1)">🤖</div><h3>Telegram-бот</h3><p>AI-ассистент для команды в Telegram. Доступ только по белому списку ID.</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(236,72,153,.1)">🔐</div><h3>VPN в комплекте</h3><p>Tailscale для удалённого доступа (нужен бесплатный аккаунт Tailscale).</p></div>
       <div class="feature-card"><div class="feature-icon" style="background:rgba(16,185,129,.1)">⚡</div><h3>3 команды + документы</h3><p><code>git clone + ./setup.sh + ollama pull</code>. Затем кинуть документы и <code>POST /ingest</code>.</p></div>
