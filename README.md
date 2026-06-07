@@ -192,6 +192,20 @@ See [docs/deployment.md](docs/deployment.md) for full configuration reference.
 
 ## 🖥️ Screenshots
 
+### RAG — Grounded Answers with Source Citations
+
+<div align="center">
+  <img src="docs/screenshots/rag-demo-citation.png" alt="RAG answer with source citation" width="700">
+  <br><br>
+  <img src="docs/screenshots/rag-demo-all.png" alt="4 RAG demo queries" width="700">
+  <br><br>
+  <img src="docs/screenshots/rag-demo-edge.png" alt="RAG honest refusal when topic not in documents" width="700">
+  <br>
+  <sub><strong>↑</strong> Live RAG from a running Hermes Box: every answer includes a visible source citation. When docs don't contain the answer — the model refuses to hallucinate.</sub>
+</div>
+
+### Web UI
+
 <div align="center">
   <img src="docs/screenshots/webui-chat.png" alt="Open WebUI Chat" width="400">
 </div>
