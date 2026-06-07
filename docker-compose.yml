@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # ─── AI Inference ───────────────────────────────────
   ollama:
@@ -18,10 +16,12 @@ services:
               count: all
               capabilities: [gpu]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      # /api/version returns 200; bare / returns 404 and would hang the stack.
+      test: ["CMD-SHELL", "ollama --version >/dev/null 2>&1 || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
+      start_period: 60s
     profiles: ["full", "gpu"]
 
   # ─── Chat Interface ────────────────────────────────
@@ -35,7 +35,7 @@ services:
       - webui_data:/app/backend/data
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
-      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:-change-me-in-production}
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:?WEBUI_SECRET_KEY must be set - run setup.sh}
     depends_on:
       ollama:
         condition: service_healthy
@@ -43,7 +43,9 @@ services:
 
   # ─── Agent Orchestration ───────────────────────────
   hermes:
-    image: hermes-agent/hermes:latest
+    build:
+      context: ./hermes-agent
+    image: hermes-box/agent:local
     container_name: hermes-core
     restart: unless-stopped
     ports:
@@ -51,39 +53,42 @@ services:
     volumes:
       - ./config/hermes.yaml:/etc/hermes/config.yaml:ro
       - hermes_data:/var/lib/hermes
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - HERMES_CONFIG=/etc/hermes/config.yaml
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - RAG_URL=http://rag:8002
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ALLOWED_TELEGRAM_IDS=${ALLOWED_TELEGRAM_IDS:-}
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request;urllib.request.urlopen('http://localhost:8787/health')\" || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     profiles: ["full", "gpu", "basic"]
 
-  # ─── Security Guardrails ───────────────────────────
-  guardrails:
-    image: hermes-agent/guardrails:latest
-    container_name: hermes-guardrails
+  # ─── RAG: chat over your own documents ─────────────
+  rag:
+    build:
+      context: ./rag
+    image: hermes-box/rag:local
+    container_name: hermes-rag
     restart: unless-stopped
     ports:
-      - "8001:8001"
+      - "8002:8002"
     volumes:
-      - ./config/guardrails.yaml:/etc/hermes/guardrails.yaml:ro
-      - guardrails_data:/var/lib/guardrails
+      - ./documents:/data/documents:ro
+      - rag_data:/var/lib/rag
     environment:
-      - GUARDRAILS_CONFIG=/etc/hermes/guardrails.yaml
-    profiles: ["full", "gpu"]
-
-  # ─── Monitoring Dashboard ──────────────────────────
-  dashboard:
-    image: nginx:alpine
-    container_name: hermes-dashboard
-    restart: unless-stopped
-    ports:
-      - "9119:80"
-    volumes:
-      - ./docs/screenshots:/usr/share/nginx/html/screenshots:ro
-    profiles: ["full"]
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - EMBED_MODEL=${EMBED_MODEL:-nomic-embed-text}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    profiles: ["full", "gpu", "basic"]
 
   # ─── VPN Gateway (Tailscale sidecar) ───────────────
   tailscale:
@@ -94,17 +99,16 @@ services:
       - TS_AUTHKEY=${TS_AUTHKEY:-}
       - TS_HOSTNAME=hermes-box
       - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=true
     volumes:
       - tailscale_data:/var/lib/tailscale
-      - /dev/net/tun:/dev/net/tun
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
     profiles: ["full", "gpu", "basic"]
 
 volumes:
   ollama_data:
   webui_data:
   hermes_data:
-  guardrails_data:
+  rag_data:
   tailscale_data:
