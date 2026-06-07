@@ -83,16 +83,21 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   .hero .hero-actions{flex-direction:column;align-items:center}
 }
 .hint{color:#475569;font-size:.8em;margin-top:8px}
-.fb-post{background:#14142a;border:1px solid rgba(99,102,241,.08);border-radius:12px;padding:20px 24px;margin-bottom:16px;transition:all .2s}
-.fb-post:hover{border-color:rgba(99,102,241,.15);background:#16162e}
-.fb-header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.fb-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.fb-name{font-size:.88em;font-weight:700;color:#e0e4f0}
-.fb-time{font-size:.72em;color:#64748b;margin-top:2px}
-.fb-body{font-size:.85em;color:#94a3b8;line-height:1.6;margin-bottom:14px;padding-left:58px}
-.fb-actions{display:flex;gap:4px;padding-top:12px;border-top:1px solid rgba(99,102,241,.06)}
-.fb-action{font-size:.78em;color:#64748b;padding:6px 14px;border-radius:6px;cursor:default;transition:all .15s}
-.fb-action:hover{background:rgba(99,102,241,.08);color:#a5b4fc}
+/* Thefacebook 2004 style for Skills */
+#skills{background:#3b5998;padding:40px 0}
+#skills .section-label{color:#dfe3ee}
+#skills .section-header h2{color:#fff}
+#skills .section-header p{color:#dfe3ee;opacity:.9}
+.fb-post{background:#fff;border:1px solid #333;padding:10px 12px;margin-bottom:8px;font-family:Tahoma,Verdana,Arial,sans-serif}
+.fb-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.fb-avatar{width:28px;height:28px;border:1px solid #999;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;background:#f0f2f5}
+.fb-name{font-size:11px;font-weight:700;color:#3b5998}
+.fb-time{font-size:9px;color:#777;margin-top:1px}
+.fb-body{font-size:11px;color:#333;line-height:1.4;margin-bottom:6px}
+.fb-actions{display:flex;gap:0;padding-top:4px;border-top:1px solid #ddd}
+.fb-action{font-size:10px;color:#666;padding:2px 8px;border-right:1px solid #ddd;cursor:default}
+.fb-action:last-child{border-right:none}
+.fb-action:hover{color:#3b5998;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -194,118 +199,118 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <div class="section-divider"></div>
 
 <section class="section" id="skills">
-  <div class="container" style="max-width:720px">
+  <div class="container" style="max-width:620px">
     <div class="section-header">
       <span class="section-label">Расширяемость</span>
-      <h2>Skills — научи бота новому за минуту</h2>
-      <p style="max-width:520px">Hermes Agent загружает навыки на лету. Никаких перезапусков — просто добавил Python-файл. Каждый Skill работает как приложение внутри бота.</p>
+      <h2>Skills</h2>
+      <p style="font-size:11px">Добавь Python-файл — навык работает как приложение внутри бота.</p>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(124,58,237,.18);color:#a78bfa">📊</div>
+        <div class="fb-avatar">📊</div>
         <div>
           <div class="fb-name">Google Таблицы</div>
-          <div class="fb-time">Дополнение · 2 мин</div>
+          <div class="fb-time">3 минуты назад · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        Читать и писать таблицы прямо из Telegram. Обновить склад, выгрузить месячный отчёт, синхронизировать CRM — без веб-интерфейса.
+        Читать и писать таблицы из Telegram. Обновить склад, выгрузить отчёт, синхронизировать CRM.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(6,182,212,.15);color:#22d3ee">📧</div>
+        <div class="fb-avatar">📧</div>
         <div>
           <div class="fb-name">Почтовый агент</div>
-          <div class="fb-time">Дополнение · 5 мин</div>
+          <div class="fb-time">7 минут назад · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        «Найди счёт за прошлую неделю» — бот подключается к IMAP, ищет письмо и присылает вложение. Отправка писем голосом.
+        «Найди счёт за прошлую неделю» — подключается к IMAP, ищет письмо, присылает вложение.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(234,179,8,.15);color:#eab308">✅</div>
+        <div class="fb-avatar">✅</div>
         <div>
           <div class="fb-name">Управление задачами</div>
-          <div class="fb-time">Дополнение · 3 мин</div>
+          <div class="fb-time">12 минут назад · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        Создавать задачи, двигать статусы, назначать людей — одним сообщением. Работает с GitHub Issues, Jira или любым REST API.
+        Создавать задачи, двигать статусы, назначать исполнителей — одним сообщением.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(34,197,94,.15);color:#4ade80">📋</div>
+        <div class="fb-avatar">📋</div>
         <div>
           <div class="fb-name">Отчёты и аналитика</div>
-          <div class="fb-time">Дополнение · 5 мин</div>
+          <div class="fb-time">25 минут назад · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        Автоматические отчёты по расписанию — продажи за день, статистика сервера за неделю, сводка за месяц. Доставка в Telegram в нужное время.
+        Автоматические отчёты по расписанию — продажи за день, статистика сервера, сводка за месяц.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(236,72,153,.15);color:#f472b6">🔍</div>
+        <div class="fb-avatar">🔍</div>
         <div>
           <div class="fb-name">Code Review</div>
-          <div class="fb-time">Дополнение · 4 мин</div>
+          <div class="fb-time">1 час назад · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        Кидаете ссылку на PR — бот проверяет код, находит проблемы со стилем, предлагает исправления. Интеграция через GitHub webhooks.
+        Кидаете ссылку на PR — бот проверяет код, находит проблемы, предлагает исправления.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
     <div class="fb-post">
       <div class="fb-header">
-        <div class="fb-avatar" style="background:rgba(16,185,129,.15);color:#34d399">🧩</div>
+        <div class="fb-avatar">🧩</div>
         <div>
           <div class="fb-name">Свой Skill</div>
-          <div class="fb-time">DIY · 10 мин</div>
+          <div class="fb-time">Только что · от Hermes</div>
         </div>
       </div>
       <div class="fb-body">
-        Пишете Python-файл с инструкциями на естественном языке. Бот читает и выполняет. Никакого SDK — просто .py файл.
+        Пишешь Python-файл с инструкциями на естественном языке. Никакого SDK — просто .py файл.
       </div>
       <div class="fb-actions">
-        <span class="fb-action">👍 Нравится</span>
-        <span class="fb-action">💬 Коммент</span>
-        <span class="fb-action">↗ Поделиться</span>
+        <span class="fb-action">Нравится</span>
+        <span class="fb-action">Коммент</span>
+        <span class="fb-action">Поделиться</span>
       </div>
     </div>
 
