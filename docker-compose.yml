@@ -1,0 +1,110 @@
+version: "3.9"
+
+services:
+  # ─── AI Inference ───────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: hermes-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles: ["full", "gpu"]
+
+  # ─── Chat Interface ────────────────────────────────
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: hermes-webui
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    volumes:
+      - webui_data:/app/backend/data
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:-change-me-in-production}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    profiles: ["full", "gpu", "basic"]
+
+  # ─── Agent Orchestration ───────────────────────────
+  hermes:
+    image: hermes-agent/hermes:latest
+    container_name: hermes-core
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./config/hermes.yaml:/etc/hermes/config.yaml:ro
+      - hermes_data:/var/lib/hermes
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - HERMES_CONFIG=/etc/hermes/config.yaml
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    depends_on:
+      - ollama
+    profiles: ["full", "gpu", "basic"]
+
+  # ─── Security Guardrails ───────────────────────────
+  guardrails:
+    image: hermes-agent/guardrails:latest
+    container_name: hermes-guardrails
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./config/guardrails.yaml:/etc/hermes/guardrails.yaml:ro
+      - guardrails_data:/var/lib/guardrails
+    environment:
+      - GUARDRAILS_CONFIG=/etc/hermes/guardrails.yaml
+    profiles: ["full", "gpu"]
+
+  # ─── Monitoring Dashboard ──────────────────────────
+  dashboard:
+    image: nginx:alpine
+    container_name: hermes-dashboard
+    restart: unless-stopped
+    ports:
+      - "9119:80"
+    volumes:
+      - ./docs/screenshots:/usr/share/nginx/html/screenshots:ro
+    profiles: ["full"]
+
+  # ─── VPN Gateway (Tailscale sidecar) ───────────────
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: hermes-vpn
+    restart: unless-stopped
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY:-}
+      - TS_HOSTNAME=hermes-box
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - tailscale_data:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    profiles: ["full", "gpu", "basic"]
+
+volumes:
+  ollama_data:
+  webui_data:
+  hermes_data:
+  guardrails_data:
+  tailscale_data:

@@ -1,0 +1,62 @@
+# ──────────────────────────────────────────────────────────
+# Hermes Agent Configuration — hermes-box
+# ──────────────────────────────────────────────────────────
+# This file is mounted into the hermes-core container at
+# /etc/hermes/config.yaml.
+#
+# Model: qwen2.5 via local Ollama instance
+# Gateway: Telegram (webhook/long-poll)
+# ──────────────────────────────────────────────────────────
+
+agent:
+  # The default model used by Hermes Agent for reasoning
+  model: "ollama/qwen2.5:latest"
+
+  # Maximum conversation turns before forced termination
+  max_turns: 90
+
+  # Temperature for the LLM (0.0 = deterministic, 1.0 = creative)
+  temperature: 0.7
+
+  # Maximum tokens per response
+  max_tokens: 4096
+
+  # Toolsets available to the agent
+  toolsets:
+    - terminal   # Shell command execution
+    - file       # File read/write/search
+    - web        # Web scraping & search (Firecrawl)
+    - delegation # Sub-agent task delegation
+
+# ─── Ollama Provider ──────────────────────────────────
+providers:
+  ollama:
+    base_url: "http://ollama:11434"
+    default_model: "qwen2.5:latest"
+    timeout: 120
+    keep_alive: "5m"
+
+# ─── Gateways ─────────────────────────────────────────
+gateways:
+  telegram:
+    enabled: true
+    bot_token: "${TELEGRAM_BOT_TOKEN}"
+    allowed_user_ids: []
+    webhook_url: ""
+    polling_interval: 3  # seconds
+
+  # API gateway — exposes a REST endpoint for external integrations
+  api:
+    enabled: false
+    host: "0.0.0.0"
+    port: 8787
+
+# ─── Storage ──────────────────────────────────────────
+storage:
+  type: "sqlite"
+  path: "/var/lib/hermes/hermes.db"
+
+# ─── Logging ──────────────────────────────────────────
+logging:
+  level: "info"    # debug | info | warn | error
+  format: "json"   # json | text
