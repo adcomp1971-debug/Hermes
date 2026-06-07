@@ -140,16 +140,44 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <div class="section-divider"></div>
 
 <section class="section" id="demo">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">Live Demo</span>
-      <h2>See it working</h2>
-      <p>Actual RAG response from a live Hermes Box instance — AI answers based on a document, with source citation.</p>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Live Demo</span>
+        <h2>See It in Action</h2>
+        <p>Actual RAG responses from a live Hermes Box instance — every answer is grounded in real documents with visible source citations.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:40px">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span style="background:#238636;color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:600">✓ GROUNDED</span>
+            <span style="color:#94a3b8;font-size:14px;font-weight:500">Citation from source documents</span>
+          </div>
+          <img src="rag-demo-citation.png" alt="RAG answer with source citation shown in green box" class="screenshot">
+          <p class="hint" style="text-align:center">The AI lists 5 components, citing <strong>hermes-box-tech-overview.txt</strong> and <strong>readme.txt</strong> in the response</p>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span style="background:#238636;color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:600">✓ GROUNDED</span>
+            <span style="color:#94a3b8;font-size:14px;font-weight:500">Multilingual — works in Russian too</span>
+          </div>
+          <img src="rag-demo-all.png" alt="4 RAG demo queries including multilingual and edge case" class="screenshot">
+          <p class="hint" style="text-align:center">4 queries: technical docs · Russian installation · security · honest refusal on unknown topic</p>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span style="background:#d29922;color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:600">⨯ NOT IN DOCUMENTS</span>
+            <span style="color:#94a3b8;font-size:14px;font-weight:500">No hallucinations — honest refusal</span>
+          </div>
+          <img src="rag-demo-edge.png" alt="RAG honestly refusing to answer when topic is not in documents" class="screenshot">
+          <p class="hint" style="text-align:center">When asked about Kubernetes (not in docs) → model says "context does not mention this" rather than making up an answer</p>
+        </div>
+      </div>
+
     </div>
-    <img src="rag-citation.png" alt="Hermes Box RAG demo — grounded answer with source citation" class="screenshot">
-    <p class="hint" style="text-align:center">RAG pipeline: nomic-embed-text (retrieval) → qwen2.5:7b (generation) · Source: hermes-box-tech-overview.txt</p>
-  </div>
-</section>
+  </section>
 
 <div class="section-divider"></div>
 
